@@ -1,5 +1,5 @@
 # ---------- CARD MANAGER ----------
-# used to manage card placement
+# used to manage card placement and selecting/dragging
 extends Node2D
 
 # store collision mask for later use, default layer is 1
@@ -8,6 +8,11 @@ const COLLISION_MASK_CARD = 1
 var card_being_dragged
 # store screen size
 var screen_size
+# bool to store if mouse is on card
+var is_hovering_on_card
+# store card scales for reuse
+var normalScale = Vector2(3, 3)
+var largeScale = Vector2(4, 4)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -28,11 +33,57 @@ func _input(event):
 			# check if there was a card result where mouse clicked
 			var card = raycast_check_for_card()
 			if card:
-				# card result is now being dragged
-				card_being_dragged = card
+				start_drag(card)
 		# if card result was null, no card being dragged
-		else: card_being_dragged = null
-			
+		else: 
+			finish_drag()
+
+# store card drag abilities
+func start_drag(card): 
+	card_being_dragged = card
+	# when dragging, set scale back to normal
+	card.scale = normalScale
+
+# store card finish drag abilities (if there is a card being dragged)
+func finish_drag(): 
+	if card_being_dragged:
+		card_being_dragged = null
+
+# function to connect child cards to this script through signals
+func connect_card_signals(card):
+	card.connect("hovered", on_hover_card)
+	card.connect("hovered_off", on_hover_off)
+	
+# logic for when card is hovered over and signal is called
+func on_hover_card(card):
+	# ignore this hover if a different card is on top
+	var top_card = raycast_check_for_card()
+	if top_card != card:
+		return
+	highlight_card(card, true)
+	
+# logic for when a card is no longer hovered over and signal is called
+func on_hover_off(card):
+	# if there is a card being dragged
+	if !card_being_dragged:
+		# do not highlight a card being passed over
+		highlight_card(card, false)
+		# check if mouse hovered off card straight on to another card
+		var new_card_hovered = raycast_check_for_card()
+		# if there is another card, highlight it
+		if new_card_hovered:
+			highlight_card(new_card_hovered, true)
+		else: is_hovering_on_card = false;
+	
+# for effects applied to card on hover over
+func highlight_card(card, hovered):
+		if hovered:
+			card.scale = largeScale
+			card.z_index = 2
+		else:
+			card.scale = normalScale
+			card.z_index = 1
+	
 # check if there is a card under the mouse position
 # -- mostly taken from godot engine documentation --
 func raycast_check_for_card():
@@ -45,5 +96,19 @@ func raycast_check_for_card():
 	var result = space_state.intersect_point(parameters)
 	# if there was a result, get the Card node
 	if result.size() > 0:	
-		return result[0].collider.get_parent()
+		return get_card_with_highest_z_index(result)
 	return null
+	
+# used to grab card on top of another card (cards because result returns an array)
+func get_card_with_highest_z_index(cards):
+	# collider with two .get_parent()s because card -> sprite -> collider
+	var highest_z_card = cards[0].collider.get_parent().get_parent()
+	var highest_z_index = highest_z_card.z_index
+	
+	# loop through cards for higher z index
+	for i in range(1, cards.size()):
+		var current_card = cards[i].collider.get_parent().get_parent()
+		if current_card.z_index > highest_z_index:
+			highest_z_card = current_card
+			highest_z_index = current_card.z_index
+	return highest_z_card
