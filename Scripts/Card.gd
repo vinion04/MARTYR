@@ -1,3 +1,5 @@
+# # ---------- card.gd ----------
+# handles card movement
 extends Node2D
 
 # signals to communicate with CardManager script

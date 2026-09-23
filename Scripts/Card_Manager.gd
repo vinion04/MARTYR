@@ -1,4 +1,4 @@
-# ---------- CARD MANAGER ----------
+# ---------- card_manager.gd ----------
 # used to manage card placement and selecting/dragging
 extends Node2D
 
@@ -11,8 +11,8 @@ var screen_size
 # bool to store if mouse is on card
 var is_hovering_on_card
 # store card scales for reuse
-var normalScale = Vector2(3, 3)
-var largeScale = Vector2(4, 4)
+var normalScale = Vector2(2, 2)
+var largeScale = Vector2(3, 3)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		# clamps within screen size
 		card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
-	
+
 # handle mouse click on card
 func _input(event):
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:

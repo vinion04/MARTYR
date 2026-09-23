@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ceo4jihyqabxd"]
+
+[ext_resource type="Script" uid="uid://bfolanhn4jw0v" path="res://Scripts/Card_Manager.gd" id="1_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://bw0i8rqddccpa" path="res://Scenes/Card.tscn" id="2_8gbba"]
+
+[node name="Main" type="Node2D" unique_id=926077494]
+
+[node name="CardManager" type="Node2D" parent="." unique_id=2111637557]
+script = ExtResource("1_bo1nx")
+
+[node name="Card" parent="CardManager" unique_id=1529585826 instance=ExtResource("2_8gbba")]
+position = Vector2(516, 546)
+scale = Vector2(2, 2)
+
+[node name="Card2" parent="CardManager" unique_id=1469974437 instance=ExtResource("2_8gbba")]
+position = Vector2(687, 548)
+scale = Vector2(2, 2)
