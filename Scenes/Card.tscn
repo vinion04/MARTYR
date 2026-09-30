@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bw0i8rqddccpa"]
 
 [ext_resource type="Script" uid="uid://3gsdp2h0yjyd" path="res://Scripts/Card.gd" id="1_3p273"]
-[ext_resource type="Texture2D" uid="uid://tdd2qla0uttf" path="res://Sprites/Card Sprites/pixil-frame-0.png" id="2_h8wm0"]
+[ext_resource type="Texture2D" uid="uid://tdd2qla0uttf" path="res://Sprites/Card Sprites/CardImg.png" id="2_h8wm0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bilch"]
 size = Vector2(42, 62)

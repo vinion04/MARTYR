@@ -2,8 +2,10 @@
 # used to manage card placement and selecting/dragging
 extends Node2D
 
-# store collision mask for later use, default layer is 1
+# ----- VARIABLES -----
+# store collision masks for later use, default layer is 1
 const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_CARD_SLOT = 2
 # store what card is being dragged
 var card_being_dragged
 # store screen size
@@ -11,12 +13,16 @@ var screen_size
 # bool to store if mouse is on card
 var is_hovering_on_card
 # store card scales for reuse
-var normalScale = Vector2(2, 2)
-var largeScale = Vector2(3, 3)
+var normalScale = Vector2(4, 4)
+var largeScale = Vector2(5, 5)
+# player hand
+var player_hand_ref
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	# set player_hand_ref
+	player_hand_ref = $"../PlayerHand"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -40,6 +46,11 @@ func _input(event):
 
 # store card drag abilities
 func start_drag(card): 
+	# check if this is a card in a slot
+	var card_slot_found = raycast_check_for_slot()
+	# if card is in slot, ** and first turn for card **
+	if card_slot_found and card_slot_found.card_in_slot:
+		card_slot_found.card_in_slot = false
 	card_being_dragged = card
 	# when dragging, set scale back to normal
 	card.scale = normalScale
@@ -47,6 +58,16 @@ func start_drag(card):
 # store card finish drag abilities (if there is a card being dragged)
 func finish_drag(): 
 	if card_being_dragged:
+		# check if there is a card slot to be dropped into
+		var card_slot_found = raycast_check_for_slot()
+		if card_slot_found and not card_slot_found.card_in_slot:
+			# card dropped in empty slot
+			card_being_dragged.position = card_slot_found.position
+			#card_being_dragged.get_node("CardImage/Area2D/CollisionShape2D").disabled = true
+			card_slot_found.card_in_slot = true
+		else:
+			# if there is no card slot to be dropped in to, return to hand
+			player_hand_ref.add_card_to_hand(card_being_dragged)
 		card_being_dragged = null
 
 # function to connect child cards to this script through signals
@@ -97,6 +118,20 @@ func raycast_check_for_card():
 	# if there was a result, get the Card node
 	if result.size() > 0:	
 		return get_card_with_highest_z_index(result)
+	return null
+	
+# check if there is a slot for the card to be dropped in to
+func raycast_check_for_slot():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	# set params to check for card
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = COLLISION_MASK_CARD_SLOT
+	var result = space_state.intersect_point(parameters)
+	# if there was a result, get the Card node
+	if result.size() > 0:	
+		return result[0].collider.get_parent()
 	return null
 	
 # used to grab card on top of another card (cards because result returns an array)

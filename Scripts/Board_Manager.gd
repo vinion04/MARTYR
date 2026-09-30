@@ -1,13 +1,13 @@
 # # ---------- board_manager.gd ----------
 # used to keep track of board state
-extends Node
+extends Node2D
 
+# ----- VARIABLES -----
+# store card in slot
+var card_in_slot
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+# function for letting the card go if player decides
+# to move it from this slot (only possible pre-combat, 
+# the first turn the card is placed)
+func let_card_go():
+	card_in_slot = false
