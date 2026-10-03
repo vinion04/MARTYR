@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://dedukq0nnae7m"]
+
+[ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="1_2toe4"]
+
+[resource]
+script = ExtResource("1_2toe4")
+card_name = "Sword"
+damage = 3
+health = 3
+metadata/_custom_type_script = "uid://dnoged02fqnwx"

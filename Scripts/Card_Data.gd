@@ -23,12 +23,13 @@ enum EffectType {
 }
 
 # card data
+@export_group("Card Stats")
 @export var card_name: String
 @export var description: String
 @export var category: CardArchetype
 @export var effect_type: EffectType
 @export var art: Texture2D
-
 @export var cost: int = 0	# resource cost to play
-@export var value: int = 0		# generic value to store damage/health/etc.
+@export var attack: int = 0		# store damage
+@export var health: int = 0		# store health
 @export var self_damage: int = 0	# health cost to player

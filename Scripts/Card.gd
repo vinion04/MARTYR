@@ -8,6 +8,7 @@ signal hovered_off
 
 # ----- VARIABLES -----
 var starting_position
+var data: CardData
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -16,10 +17,15 @@ func _ready() -> void:
 	# set scale
 	self.scale = Vector2(4, 4)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+	
+# used to set card data
+func setup(card_data: CardData):
+	data = card_data
+	$Attack.text = str(data.attack)
+	$Health.text = str(data.health)
 
 # build in GDScript function for hovering
 func _on_area_2d_mouse_entered() -> void:

@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://bfolanhn4jw0v" path="res://Scripts/card_manager.gd" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://v2tww8bd40iu" path="res://Scenes/CardSlot.tscn" id="3_jjvhh"]
-[ext_resource type="Script" uid="uid://ncdf72nox0jw" path="res://Scripts/player_hand_manager.gd" id="4_6bp64"]
+[ext_resource type="Script" uid="uid://ncdf72nox0jw" path="res://Scenes/Player_Hand_Manager.gd" id="4_6bp64"]
 [ext_resource type="Script" uid="uid://dfo78bprnbxqr" path="res://Scripts/board_manager.gd" id="4_kry3j"]
 [ext_resource type="Script" uid="uid://c8so5x83tbx2m" path="res://Scripts/deck_manager.gd" id="5_6bp64"]
 [ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://icon.svg" id="6_344ge"]
-[ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
+[ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/Input_Manager.gd" id="7_ynf5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
 size = Vector2(123, 121)
