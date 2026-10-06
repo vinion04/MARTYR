@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bw0i8rqddccpa"]
 
 [ext_resource type="Script" uid="uid://3gsdp2h0yjyd" path="res://Scripts/card.gd" id="1_3p273"]
-[ext_resource type="Texture2D" uid="uid://bbbw8eecabaax" path="res://Sprites/Card Sprites/Empty.png" id="2_3p273"]
+[ext_resource type="Texture2D" uid="uid://bbbw8eecabaax" path="res://Sprites/Card Sprites/EmptyCardImg.png" id="2_3p273"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bilch"]
 size = Vector2(42, 62)
@@ -41,6 +41,9 @@ theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
 text = "0"
 fit_content = true
+
+[node name="ItemImage" type="Sprite2D" parent="." unique_id=1180390846]
+position = Vector2(0, -9.333333)
 
 [connection signal="mouse_entered" from="CardImage/Area2D" to="." method="_on_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="CardImage/Area2D" to="." method="_on_area_2d_mouse_exited"]

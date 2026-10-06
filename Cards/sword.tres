@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://lx2mhehjgtn7"]
 
+[ext_resource type="Texture2D" uid="uid://bb6x1svfx4dxq" path="res://Sprites/Item Sprites/SwordImg.png" id="1_cmx5p"]
 [ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="1_k7asw"]
 
 [resource]
 script = ExtResource("1_k7asw")
 card_name = "Sword"
-damage = 2
+art = ExtResource("1_cmx5p")
 health = 2
 metadata/_custom_type_script = "uid://dnoged02fqnwx"

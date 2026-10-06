@@ -1,10 +1,11 @@
 [gd_resource type="Resource" script_class="CardData" format=3 uid="uid://b1jjvasli5grl"]
 
 [ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="1_yoxby"]
+[ext_resource type="Texture2D" uid="uid://dtjb6vwjjjvdj" path="res://Sprites/Item Sprites/CrossbowImg.png" id="1_ys5pm"]
 
 [resource]
 script = ExtResource("1_yoxby")
 card_name = "Sword"
-damage = 2
+art = ExtResource("1_ys5pm")
 health = 3
 metadata/_custom_type_script = "uid://dnoged02fqnwx"

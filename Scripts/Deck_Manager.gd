@@ -6,13 +6,15 @@ extends Node
 # card draw speed from deck
 const DRAW_SPEED = .5
 # what is in the player's deck ?
-var player_deck = ['Sword', 'Crossbow', 'Dagger',]
+var player_deck = ['Sword', 'Crossbow', 'Dagger', "Sword", "Crossbow"]
 # paths
 const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# shuffle() "shuffles all elements of the array in a random order
+	player_deck.shuffle()
 	# set deck count
 	$RichTextLabel.text = str(player_deck.size())
 	

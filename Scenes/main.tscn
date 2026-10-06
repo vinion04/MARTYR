@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://ceo4jihyqabxd"]
 
 [ext_resource type="Script" uid="uid://bfolanhn4jw0v" path="res://Scripts/card_manager.gd" id="1_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://v2tww8bd40iu" path="res://Scenes/CardSlot.tscn" id="3_jjvhh"]
+[ext_resource type="PackedScene" uid="uid://v2tww8bd40iu" path="res://Scenes/PlayerCardSlot.tscn" id="3_jjvhh"]
 [ext_resource type="Script" uid="uid://ncdf72nox0jw" path="res://Scripts/player_hand_manager.gd" id="4_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bnj2e3bildo5e" path="res://Scenes/VampireCardSlot.tscn" id="4_344ge"]
 [ext_resource type="Script" uid="uid://dfo78bprnbxqr" path="res://Scripts/board_manager.gd" id="4_kry3j"]
 [ext_resource type="Script" uid="uid://c8so5x83tbx2m" path="res://Scripts/deck_manager.gd" id="5_6bp64"]
 [ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://icon.svg" id="6_344ge"]
 [ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
+[ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scenes/vampire_manager.gd" id="9_ynf5e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
 size = Vector2(123, 121)
@@ -16,25 +18,46 @@ size = Vector2(123, 121)
 [node name="CardManager" type="Node2D" parent="." unique_id=2111637557]
 script = ExtResource("1_bo1nx")
 
-[node name="CardSlot1" parent="." unique_id=1378622441 instance=ExtResource("3_jjvhh")]
-position = Vector2(660, 575)
+[node name="PlayerSlotHolder" type="Node2D" parent="." unique_id=1581659366]
+
+[node name="PlayerSlot1" parent="PlayerSlotHolder" unique_id=1378622441 instance=ExtResource("3_jjvhh")]
+position = Vector2(725, 575)
 scale = Vector2(4, 4)
 script = ExtResource("4_kry3j")
 
-[node name="CardSlot2" parent="." unique_id=118912465 instance=ExtResource("3_jjvhh")]
-position = Vector2(860, 575)
+[node name="PlayerSlot2" parent="PlayerSlotHolder" unique_id=118912465 instance=ExtResource("3_jjvhh")]
+position = Vector2(925, 575)
 scale = Vector2(4, 4)
 script = ExtResource("4_kry3j")
 
-[node name="CardSlot3" parent="." unique_id=1922776766 instance=ExtResource("3_jjvhh")]
-position = Vector2(1060, 575)
+[node name="PlayerSlot3" parent="PlayerSlotHolder" unique_id=1922776766 instance=ExtResource("3_jjvhh")]
+position = Vector2(1125, 575)
 scale = Vector2(4, 4)
 script = ExtResource("4_kry3j")
 
-[node name="CardSlot4" parent="." unique_id=655250380 instance=ExtResource("3_jjvhh")]
-position = Vector2(1260, 575)
+[node name="PlayerSlot4" parent="PlayerSlotHolder" unique_id=655250380 instance=ExtResource("3_jjvhh")]
+position = Vector2(1325, 575)
 scale = Vector2(4, 4)
 script = ExtResource("4_kry3j")
+
+[node name="VampireSlotHolder" type="Node2D" parent="." unique_id=1350962484]
+position = Vector2(0, -300)
+
+[node name="VampireCardSlot1" parent="VampireSlotHolder" unique_id=820138787 instance=ExtResource("4_344ge")]
+position = Vector2(725, 575)
+scale = Vector2(4, 4)
+
+[node name="VampireCardSlot2" parent="VampireSlotHolder" unique_id=1084069804 instance=ExtResource("4_344ge")]
+position = Vector2(925, 575)
+scale = Vector2(4, 4)
+
+[node name="VampireCardSlot3" parent="VampireSlotHolder" unique_id=1179239090 instance=ExtResource("4_344ge")]
+position = Vector2(1125, 575)
+scale = Vector2(4, 4)
+
+[node name="VampireCardSlot4" parent="VampireSlotHolder" unique_id=341434998 instance=ExtResource("4_344ge")]
+position = Vector2(1325, 575)
+scale = Vector2(4, 4)
 
 [node name="PlayerHand" type="Node2D" parent="." unique_id=1914727915]
 script = ExtResource("4_6bp64")
@@ -67,3 +90,6 @@ text = "0"
 
 [node name="InputManager" type="Node2D" parent="." unique_id=645181216]
 script = ExtResource("7_ynf5e")
+
+[node name="VampireManager" type="Node2D" parent="." unique_id=1586448836]
+script = ExtResource("9_ynf5e")
