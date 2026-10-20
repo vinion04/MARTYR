@@ -3,10 +3,14 @@
 extends Node
 
 # ----- VARIABLES -----
+# what is in the player's deck ?
+var player_deck = ['Sword', 'Crossbow', 'Dagger', "Sword", "Crossbow", "Sword", "Sword", "Sword", "Sword"]
+# one card drawn per turn
+var drawn_card_this_turn = false
+
+# ----- CONSTANTS -----
 # card draw speed from deck
 const DRAW_SPEED = .5
-# what is in the player's deck ?
-var player_deck = ['Sword', 'Crossbow', 'Dagger', "Sword", "Crossbow"]
 # paths
 const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 
@@ -19,6 +23,11 @@ func _ready() -> void:
 	$RichTextLabel.text = str(player_deck.size())
 	
 func draw_card():
+	# if card was already drawn this turn, do not draw a card
+	if drawn_card_this_turn:
+		return
+	drawn_card_this_turn = true
+	
 	# take top card from deck
 	var card_drawn = player_deck[0]
 	player_deck.erase(card_drawn)
@@ -29,6 +38,7 @@ func draw_card():
 		$RichTextLabel.visible = false
 		# set deck text displayed to deck size
 	$RichTextLabel.text = str(player_deck.size())
+	
 	# get card data from database
 	var data = CardDatabase.get_card(card_drawn)
 	# create card and add it to the hand

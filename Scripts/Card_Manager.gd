@@ -1,13 +1,8 @@
 # ---------- card_manager.gd ----------
-# used to manage card placement and selecting/dragging
+# used to manage card placement (both player and vamp) and selecting/dragging
 extends Node2D
 
 # ----- VARIABLES -----
-# store collision masks for later use, default layer is 1
-const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_CARD_SLOT = 2
-# default speedd
-const DEFAULT_CARD_MOVE_SPEED = 0.1
 # store what card is being dragged
 var card_being_dragged
 # store screen size
@@ -19,6 +14,14 @@ var normalScale = Vector2(4, 4)
 var largeScale = Vector2(5, 5)
 # player hand
 var player_hand_ref
+var played_vamp_card_this_turn = false
+
+# ----- CONSTANTS -----
+# store collision masks for later use, default layer is 1
+const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_CARD_SLOT = 2
+# default speedd
+const DEFAULT_CARD_MOVE_SPEED = 0.1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -41,6 +44,9 @@ func on_left_click_released():
 	
 # store card drag abilities
 func start_drag(card): 
+	# no touch if vampire card
+	if card.data.card_owner == CardData.CardOwner.VAMPIRE:
+		return
 	# check if this is a card in a slot
 	var card_slot_found = raycast_check_for_slot()
 	# if card is in slot, ** and first turn for card **

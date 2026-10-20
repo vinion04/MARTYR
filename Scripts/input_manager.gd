@@ -4,17 +4,19 @@ signal left_mouse_button_clicked
 signal left_mouse_button_released
 
 # ----- VARIABLES -----
-# collision mask constants
-const COLLISION_MASK_CARD = 1
-const COLLISION_MASK_DECK = 4
 # references
 var card_manager_ref
 var deck_ref
 
+# ----- CONSTANTS -----
+# collision mask constants
+const COLLISION_MASK_CARD = 1
+const COLLISION_MASK_DECK = 4
+
 func _ready() -> void:
 	# set references
 	card_manager_ref = $"../CardManager"
-	deck_ref = $"../Deck"
+	deck_ref = $"../PlayerDeck"
 
 # handle mouse click
 func _input(event):

@@ -3,6 +3,11 @@
 extends Resource
 class_name CardData
 
+enum CardOwner {
+	PLAYER,
+	VAMPIRE
+}
+
 enum CardArchetype {
 	STANDARD_GEAR,
 	RECKLESS_ARSENAL,
@@ -24,6 +29,7 @@ enum EffectType {
 
 # card data
 @export_group("Card Stats")
+@export var card_owner: CardOwner = CardOwner.PLAYER
 @export var card_name: String
 @export var description: String
 @export var category: CardArchetype

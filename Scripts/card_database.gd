@@ -6,7 +6,10 @@ class_name CardDatabase
 const CARDS = {
 	"Sword": preload("res://Cards/sword.tres"),
 	"Crossbow": preload("res://Cards/crossbow.tres"),
-	"Dagger": preload("res://Cards/dagger.tres")
+	"Dagger": preload("res://Cards/dagger.tres"),
+	"SmThrall": preload("res://Cards/thrall.tres"),
+	"MdThrall": preload("res://Cards/thrall.tres"),
+	"LgThrall": preload("res://Cards/thrall.tres")
 }
 
 # returns a loaded .tres file of a card after matching it by name
