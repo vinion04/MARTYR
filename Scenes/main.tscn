@@ -127,4 +127,6 @@ offset_left = 100.0
 offset_top = 100.0
 offset_right = 216.0
 offset_bottom = 162.0
-text = "Attack"
+text = "End Turn"
+
+[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

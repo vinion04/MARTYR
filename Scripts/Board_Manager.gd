@@ -1,5 +1,5 @@
 # # ---------- board_manager.gd ----------
-# used to keep track of board state
+# used to keep track of board state (BUILD WHEN STARTING COMBAT TO KEEP TRACK OF LANES AND STUFF)
 extends Node2D
 
 # ----- VARIABLES -----
