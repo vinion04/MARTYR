@@ -1,0 +1,129 @@
+[gd_scene format=3 uid="uid://ceo4jihyqabxd"]
+
+[ext_resource type="Script" uid="uid://bfolanhn4jw0v" path="res://Scripts/card_manager.gd" id="1_bo1nx"]
+[ext_resource type="Script" uid="uid://bxphpgs22ghjq" path="res://Scripts/game_manager.gd" id="1_hptm8"]
+[ext_resource type="PackedScene" uid="uid://v2tww8bd40iu" path="res://Scenes/PlayerCardSlot.tscn" id="3_jjvhh"]
+[ext_resource type="Script" uid="uid://ncdf72nox0jw" path="res://Scripts/hand_manager.gd" id="4_6bp64"]
+[ext_resource type="PackedScene" uid="uid://bnj2e3bildo5e" path="res://Scenes/VampireCardSlot.tscn" id="4_344ge"]
+[ext_resource type="Script" uid="uid://c8o11q51vi6va" path="res://Scenes/card_slot.gd" id="4_hptm8"]
+[ext_resource type="Script" uid="uid://dfo78bprnbxqr" path="res://Scripts/board_manager.gd" id="4_kry3j"]
+[ext_resource type="Script" uid="uid://c8so5x83tbx2m" path="res://Scripts/deck_manager.gd" id="5_6bp64"]
+[ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://icon.svg" id="6_344ge"]
+[ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
+[ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scripts/vampire_manager.gd" id="9_ynf5e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
+size = Vector2(123, 121)
+
+[node name="Main" type="Node2D" unique_id=926077494]
+script = ExtResource("1_hptm8")
+
+[node name="CardManager" type="Node2D" parent="." unique_id=2111637557]
+script = ExtResource("1_bo1nx")
+
+[node name="PlayerSlots" type="Node2D" parent="." unique_id=1581659366]
+
+[node name="PlayerSlot1" parent="PlayerSlots" unique_id=1378622441 instance=ExtResource("3_jjvhh")]
+position = Vector2(680, 650)
+scale = Vector2(4, 4)
+script = ExtResource("4_hptm8")
+
+[node name="PlayerSlot2" parent="PlayerSlots" unique_id=118912465 instance=ExtResource("3_jjvhh")]
+position = Vector2(900, 650)
+scale = Vector2(4, 4)
+
+[node name="PlayerSlot3" parent="PlayerSlots" unique_id=1922776766 instance=ExtResource("3_jjvhh")]
+position = Vector2(1120, 650)
+scale = Vector2(4, 4)
+
+[node name="PlayerSlot4" parent="PlayerSlots" unique_id=655250380 instance=ExtResource("3_jjvhh")]
+position = Vector2(1340, 650)
+scale = Vector2(4, 4)
+
+[node name="VampireSlots" type="Node2D" parent="." unique_id=1350962484]
+position = Vector2(0, -300)
+
+[node name="VampireCardSlot1" parent="VampireSlots" unique_id=820138787 instance=ExtResource("4_344ge")]
+position = Vector2(680, 650)
+scale = Vector2(4, 4)
+
+[node name="VampireCardSlot2" parent="VampireSlots" unique_id=1084069804 instance=ExtResource("4_344ge")]
+position = Vector2(900, 650)
+scale = Vector2(4, 4)
+
+[node name="VampireCardSlot3" parent="VampireSlots" unique_id=1179239090 instance=ExtResource("4_344ge")]
+position = Vector2(1120, 650)
+scale = Vector2(4, 4)
+
+[node name="VampireCardSlot4" parent="VampireSlots" unique_id=341434998 instance=ExtResource("4_344ge")]
+position = Vector2(1340, 650)
+scale = Vector2(4, 4)
+
+[node name="PlayerHand" type="Node2D" parent="." unique_id=1914727915]
+script = ExtResource("4_6bp64")
+
+[node name="VampireHand" type="Node2D" parent="." unique_id=1921552000]
+script = ExtResource("4_6bp64")
+hand_y_position = 50
+
+[node name="PlayerDeck" type="Node2D" parent="." unique_id=1463337760]
+position = Vector2(200, 900)
+script = ExtResource("5_6bp64")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerDeck" unique_id=1797417022]
+z_index = -2
+texture = ExtResource("6_344ge")
+
+[node name="Area2D" type="Area2D" parent="PlayerDeck" unique_id=1216328600]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeck/Area2D" unique_id=1468800072]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_sd0ua")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PlayerDeck" unique_id=752896334]
+modulate = Color(0, 0, 0, 1)
+z_index = -2
+offset_left = -13.0
+offset_top = -129.0
+offset_right = 27.0
+offset_bottom = -89.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="VampireDeck" type="Node2D" parent="." unique_id=1344342595]
+position = Vector2(1720, 200)
+
+[node name="Sprite2D" type="Sprite2D" parent="VampireDeck" unique_id=1640316043]
+z_index = -2
+texture = ExtResource("6_344ge")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VampireDeck" unique_id=1483958547]
+modulate = Color(0, 0, 0, 1)
+z_index = -2
+offset_left = -13.0
+offset_top = -129.0
+offset_right = 27.0
+offset_bottom = -89.0
+scale = Vector2(2, 2)
+text = "0"
+
+[node name="InputManager" type="Node2D" parent="." unique_id=645181216]
+script = ExtResource("7_ynf5e")
+
+[node name="VampireManager" type="Node2D" parent="." unique_id=1586448836 node_paths=PackedStringArray("vamp_slots_container")]
+script = ExtResource("9_ynf5e")
+vamp_slots_container = NodePath("../VampireSlots")
+
+[node name="EndTurnButton" type="Button" parent="." unique_id=277767033]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 216.0
+offset_bottom = 162.0
+text = "End Turn"
+
+[node name="BoardManager" type="Node" parent="." unique_id=1647582239]
+script = ExtResource("4_kry3j")
+
+[connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

@@ -1,4 +1,4 @@
-# # ---------- deck_manager.gd ----------
+# ---------- deck_manager.gd ----------
 # used to randomize deck, draw cards into hand, and keep track of discards
 extends Node
 

@@ -15,6 +15,7 @@ var largeScale = Vector2(5, 5)
 # player hand
 var player_hand_ref
 var played_vamp_card_this_turn = false
+var board_manager_ref
 
 # ----- CONSTANTS -----
 # store collision masks for later use, default layer is 1
@@ -26,6 +27,7 @@ const DEFAULT_CARD_MOVE_SPEED = 0.1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	board_manager_ref = $"../BoardManager"
 	# set player_hand_ref
 	player_hand_ref = $"../PlayerHand"
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
@@ -47,13 +49,10 @@ func start_drag(card):
 	# no touch if vampire card
 	if card.data.card_owner == CardData.CardOwner.VAMPIRE:
 		return
-	# check if this is a card in a slot
-	var card_slot_found = raycast_check_for_slot()
-	# if card is in slot, ** and first turn for card **
-	if card_slot_found and card_slot_found.card_in_slot:
-		card_slot_found.card_in_slot = false
+	# free the slot this card is in
+	if card.current_slot:
+		board_manager_ref.remove_card(card.current_slot)
 	card_being_dragged = card
-	# when dragging, set scale back to normal
 	card.scale = normalScale
 
 # store card finish drag abilities (if there is a card being dragged)
@@ -61,13 +60,11 @@ func finish_drag():
 	if card_being_dragged:
 		# check if there is a card slot to be dropped into
 		var card_slot_found = raycast_check_for_slot()
-		if card_slot_found and not card_slot_found.card_in_slot:
+		if card_slot_found and board_manager_ref.can_player_place(card_slot_found):
 			# card removed from player hand
 			player_hand_ref.remove_card_from_hand(card_being_dragged)
-			# card dropped in empty slot
-			card_being_dragged.position = card_slot_found.position
-			#card_being_dragged.get_node("CardImage/Area2D/CollisionShape2D").disabled = true
-			card_slot_found.card_in_slot = true
+			board_manager_ref.place_card(card_being_dragged, card_slot_found)
+			card_being_dragged.global_position = card_slot_found.global_position
 		else:
 			# if there is no card slot to be dropped in to, return to hand
 			player_hand_ref.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)

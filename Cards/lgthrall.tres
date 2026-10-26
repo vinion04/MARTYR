@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://ba270rsohpon1"]
+
+[ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="1_mxl8p"]
+
+[resource]
+script = ExtResource("1_mxl8p")
+card_owner = 1
+card_name = "Thrall"
+category = 3
+attack = 4
+health = 5
+metadata/_custom_type_script = "uid://dnoged02fqnwx"

@@ -7,7 +7,9 @@ extends Node2D
 var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall"]
 # the vampire's slots
 @export var vamp_slots_container: Node2D
-var vampire_slots:  Array[Node2D] = []
+var vampire_slots:  Array[CardSlot] = []
+# board manager
+var board_manager_ref
 
 # ----- CONSTANTS -----
 # card move speed
@@ -19,10 +21,12 @@ const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# shuffle the vampire lord's deck
+	board_manager_ref = $"../BoardManager"
 	lord_deck.shuffle()
 	for child in vamp_slots_container.get_children():
+		if child is CardSlot:
 			vampire_slots.append(child)
+			
 	
 func draw_card():
 	var data = CardDatabase.get_card(lord_deck.pop_front())
@@ -40,26 +44,12 @@ func play_turn():
 		var hand = $"../VampireHand".hand
 		if hand.is_empty():
 			return
-		if not slot.card_in_slot:
+		if board_manager_ref.is_open(slot):
 			play_card_to_slot(hand[0], slot)
 			
 # used to fill open vampire slots
 func play_card_to_slot(card, slot):
 	$"../VampireHand".remove_card_from_hand(card)
-	card.current_slot = slot
-	slot.card_in_slot = true
+	board_manager_ref.place_card(card, slot)
 	var tween = get_tree().create_tween()
 	tween.tween_property(card, "global_position", slot.global_position, DEFAULT_CARD_MOVE_SPEED)
-	
-# create a vampire card and put it in the open slot
-func place_card(card_name: String, slot: Node2D):
-	var data = CardDatabase.get_card(card_name)
-	var card = preload("res://Cards/thrall.tres").instantiate()
-	$"../CardManager".add_child(card)
-	card.setup(data)
-	card.name = "VampCard"
-	card.current_slot = slot
-	slot.card_in_slot = true
-	# start at vamp hand position then slide on to board
-	var tween = get_tree().create_tween()
-	tween.tween_property(card, "position", slot.position, DEFAULT_CARD_MOVE_SPEED)

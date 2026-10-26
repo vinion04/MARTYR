@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_2toe4")
-card_name = "Sword"
+card_name = "Dagger"
 art = ExtResource("1_o04w4")
+attack = 2
 health = 3
 metadata/_custom_type_script = "uid://dnoged02fqnwx"

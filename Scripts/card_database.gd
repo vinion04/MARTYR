@@ -7,9 +7,9 @@ const CARDS = {
 	"Sword": preload("res://Cards/sword.tres"),
 	"Crossbow": preload("res://Cards/crossbow.tres"),
 	"Dagger": preload("res://Cards/dagger.tres"),
-	"SmThrall": preload("res://Cards/thrall.tres"),
-	"MdThrall": preload("res://Cards/thrall.tres"),
-	"LgThrall": preload("res://Cards/thrall.tres")
+	"SmThrall": preload("res://Cards/smthrall.tres"),
+	"MdThrall": preload("res://Cards/mdthrall.tres"),
+	"LgThrall": preload("res://Cards/lgthrall.tres")
 }
 
 # returns a loaded .tres file of a card after matching it by name

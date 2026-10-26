@@ -48,6 +48,8 @@ func enter_setup():
 		await get_tree().create_timer(0.5).timeout
 	# vampire places cards
 	$VampireManager.play_turn()
+	# can't draw a card on first turn
+	$PlayerDeck.drawn_card_this_turn = true
 	# next state would be player turn
 	change_state(State.PLAYER_TURN)
 
