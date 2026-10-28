@@ -4,7 +4,7 @@ extends Node2D
 
 # ----- VARIABLES -----
 # what is in the vampire's deck ?
-var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall"]
+var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall", "SmThrall", "SmThrall", "MdThrall", "SmThrall", "SmThrall", "LgThrall"]
 # the vampire's slots
 @export var vamp_slots_container: Node2D
 var vampire_slots:  Array[CardSlot] = []
@@ -26,8 +26,7 @@ func _ready() -> void:
 	for child in vamp_slots_container.get_children():
 		if child is CardSlot:
 			vampire_slots.append(child)
-			
-	
+				
 func draw_card():
 	var data = CardDatabase.get_card(lord_deck.pop_front())
 	var card = preload(CARD_SCENE_PATH).instantiate()

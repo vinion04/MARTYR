@@ -26,7 +26,7 @@ func change_state(new_state: State):
 		State.DRAW:
 			await enter_draw()
 		State.PLAYER_TURN:
-			pass # waiting for button implementation
+			pass
 		State.COMBAT:
 			await enter_combat()
 		State.VAMPIRE_TURN:
@@ -55,19 +55,23 @@ func enter_setup():
 
 # func for player to draw a card before turn
 func enter_draw():
-	# draw logic from deck
+	# now player can draw, must draw before playing cards
+	$PlayerDeck.drawn_card_this_turn = false
 	# now it's player's turn
 	change_state(State.PLAYER_TURN)
 	
 # func for when button clicked, enter combat phase
 func enter_combat():
 	# combat manager resolves all lanes
-	await get_tree().create_timer(0.5).timeout
+	await $CombatManager.resolve_all_lanes()
 	change_state(State.VAMPIRE_TURN)
 	
 # func to start vampire turn after combat
 func enter_vampire_turn():
-	# vampire manager play turn goes here
+	# vampire draws, then plays cards
+	await $VampireManager.draw_card()
+	$VampireManager.play_turn()
+	# small gap between next state
 	await get_tree().create_timer(0.5).timeout
 	# after vampire turn, player draws
 	change_state(State.DRAW)
@@ -81,5 +85,7 @@ func on_end_turn():
 
 # func to handle end turn button press
 func _on_end_turn_button_pressed() -> void:
-	# no longer player turn, move to combat
+	# if player turn, move to combat
+	if state != State.PLAYER_TURN:
+		return
 	change_state(State.COMBAT)

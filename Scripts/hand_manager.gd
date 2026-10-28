@@ -22,8 +22,6 @@ func _ready() -> void:
 		
 # function for adding a card to hand array
 func add_card_to_hand(card, speed):
-	print(name, " y: ", hand_y_position)
-	print(card.get_class(), " | ", card.get_script(), " | ", card.scene_file_path)
 	if card not in hand:
 		hand.insert(0, card)
 		update_hand_position(speed)

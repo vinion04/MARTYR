@@ -1,5 +1,5 @@
 # ---------- card_manager.gd ----------
-# used to manage card placement (both player and vamp) and selecting/dragging
+# used to handle hovering/dragging mechanics
 extends Node2D
 
 # ----- VARIABLES -----

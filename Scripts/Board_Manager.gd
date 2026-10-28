@@ -1,8 +1,10 @@
 # # ---------- board_manager.gd ----------
-# used to keep track of board state (BUILD WHEN STARTING COMBAT TO KEEP TRACK OF LANES AND STUFF)
+# used to keep track of board state and card placement in slots
 extends Node
 
 # ----- VARIABLES -----
+@export var player_slots: Array[CardSlot] = []
+@export var vampire_slots: Array[CardSlot] = []
 # store card in slot
 var card_in_slot
 # store card slots
@@ -41,3 +43,7 @@ func remove_card(slot: CardSlot):
 	if card:
 		card.current_slot = null
 	board.erase(slot)
+	
+# used to get the slot that the card is in
+func get_card_in(slot: CardSlot):
+	return board.get(slot)

@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://icon.svg" id="6_344ge"]
 [ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
 [ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scripts/vampire_manager.gd" id="9_ynf5e"]
+[ext_resource type="Script" uid="uid://bs2dn1oj3ooah" path="res://Scripts/combat_manager.gd" id="12_6iyac"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
 size = Vector2(123, 121)
@@ -143,7 +144,12 @@ offset_right = 216.0
 offset_bottom = 162.0
 text = "End Turn"
 
-[node name="BoardManager" type="Node" parent="." unique_id=1647582239]
+[node name="BoardManager" type="Node" parent="." unique_id=1647582239 node_paths=PackedStringArray("player_slots", "vampire_slots")]
 script = ExtResource("4_kry3j")
+player_slots = [NodePath("../PlayerSlots/PlayerSlot1"), NodePath("../PlayerSlots/PlayerSlot2"), NodePath("../PlayerSlots/PlayerSlot3"), NodePath("../PlayerSlots/PlayerSlot4")]
+vampire_slots = [NodePath("../VampireSlots/VampireCardSlot1"), NodePath("../VampireSlots/VampireCardSlot2"), NodePath("../VampireSlots/VampireCardSlot3"), NodePath("../VampireSlots/VampireCardSlot4")]
+
+[node name="CombatManager" type="Node" parent="." unique_id=751546925]
+script = ExtResource("12_6iyac")
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
