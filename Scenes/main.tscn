@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dfo78bprnbxqr" path="res://Scripts/board_manager.gd" id="4_kry3j"]
 [ext_resource type="Script" uid="uid://c8so5x83tbx2m" path="res://Scripts/deck_manager.gd" id="5_6bp64"]
 [ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://icon.svg" id="6_344ge"]
+[ext_resource type="Script" uid="uid://xfrg8g4ybgjp" path="res://Scripts/player_manager.gd" id="6_fdnlq"]
 [ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
 [ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scripts/vampire_manager.gd" id="9_ynf5e"]
 [ext_resource type="Script" uid="uid://bs2dn1oj3ooah" path="res://Scripts/combat_manager.gd" id="12_6iyac"]
@@ -47,6 +48,38 @@ position = Vector2(1340, 650)
 scale = Vector2(4, 4)
 script = ExtResource("4_hptm8")
 lane_index = 4
+
+[node name="PlayerHand" type="Node2D" parent="." unique_id=1914727915]
+script = ExtResource("4_6bp64")
+
+[node name="PlayerManager" type="Node" parent="." unique_id=1822998281]
+script = ExtResource("6_fdnlq")
+
+[node name="PlayerDeck" type="Node2D" parent="." unique_id=1463337760]
+position = Vector2(200, 900)
+script = ExtResource("5_6bp64")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerDeck" unique_id=1797417022]
+z_index = -2
+texture = ExtResource("6_344ge")
+
+[node name="Area2D" type="Area2D" parent="PlayerDeck" unique_id=1216328600]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeck/Area2D" unique_id=1468800072]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_sd0ua")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PlayerDeck" unique_id=752896334]
+modulate = Color(0, 0, 0, 1)
+z_index = -2
+offset_left = -13.0
+offset_top = -129.0
+offset_right = 27.0
+offset_bottom = -89.0
+scale = Vector2(2, 2)
+text = "0"
 
 [node name="VampireSlots" type="Node2D" parent="." unique_id=1350962484]
 position = Vector2(0, -300)
@@ -88,35 +121,6 @@ hand_y_position = 50
 script = ExtResource("9_ynf5e")
 vamp_slots_container = NodePath("../VampireSlots")
 
-[node name="PlayerHand" type="Node2D" parent="." unique_id=1914727915]
-script = ExtResource("4_6bp64")
-
-[node name="PlayerDeck" type="Node2D" parent="." unique_id=1463337760]
-position = Vector2(200, 900)
-script = ExtResource("5_6bp64")
-
-[node name="Sprite2D" type="Sprite2D" parent="PlayerDeck" unique_id=1797417022]
-z_index = -2
-texture = ExtResource("6_344ge")
-
-[node name="Area2D" type="Area2D" parent="PlayerDeck" unique_id=1216328600]
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeck/Area2D" unique_id=1468800072]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_sd0ua")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PlayerDeck" unique_id=752896334]
-modulate = Color(0, 0, 0, 1)
-z_index = -2
-offset_left = -13.0
-offset_top = -129.0
-offset_right = 27.0
-offset_bottom = -89.0
-scale = Vector2(2, 2)
-text = "0"
-
 [node name="VampireDeck" type="Node2D" parent="." unique_id=1344342595]
 position = Vector2(1720, 200)
 
@@ -124,25 +128,8 @@ position = Vector2(1720, 200)
 z_index = -2
 texture = ExtResource("6_344ge")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VampireDeck" unique_id=1483958547]
-modulate = Color(0, 0, 0, 1)
-z_index = -2
-offset_left = -13.0
-offset_top = -129.0
-offset_right = 27.0
-offset_bottom = -89.0
-scale = Vector2(2, 2)
-text = "0"
-
 [node name="InputManager" type="Node2D" parent="." unique_id=645181216]
 script = ExtResource("7_ynf5e")
-
-[node name="EndTurnButton" type="Button" parent="." unique_id=277767033]
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 216.0
-offset_bottom = 162.0
-text = "End Turn"
 
 [node name="BoardManager" type="Node" parent="." unique_id=1647582239 node_paths=PackedStringArray("player_slots", "vampire_slots")]
 script = ExtResource("4_kry3j")
@@ -151,5 +138,12 @@ vampire_slots = [NodePath("../VampireSlots/VampireCardSlot1"), NodePath("../Vamp
 
 [node name="CombatManager" type="Node" parent="." unique_id=751546925]
 script = ExtResource("12_6iyac")
+
+[node name="EndTurnButton" type="Button" parent="." unique_id=277767033]
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 216.0
+offset_bottom = 162.0
+text = "End Turn"
 
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]

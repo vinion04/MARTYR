@@ -1,6 +1,6 @@
 # ---------- card_slot.gd ----------
 extends Node2D
-# to be found by board_manager
+# to be used by other scripts
 class_name CardSlot
 
 enum Owner { PLAYER, VAMPIRE }

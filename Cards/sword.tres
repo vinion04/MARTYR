@@ -7,6 +7,6 @@
 script = ExtResource("1_k7asw")
 card_name = "Sword"
 art = ExtResource("1_cmx5p")
-attack = 2
+attack = 3
 health = 3
 metadata/_custom_type_script = "uid://dnoged02fqnwx"

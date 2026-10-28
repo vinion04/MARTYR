@@ -13,8 +13,11 @@ var state: State = State.SETUP
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# connect deck drawn signal
+	$PlayerDeck.connect("player_draw", on_player_card_drawn)
+	# start setup
 	change_state(State.SETUP)
-
+	
 # func to handle state changes
 func change_state(new_state: State):
 	state = new_state
@@ -57,8 +60,11 @@ func enter_setup():
 func enter_draw():
 	# now player can draw, must draw before playing cards
 	$PlayerDeck.drawn_card_this_turn = false
-	# now it's player's turn
-	change_state(State.PLAYER_TURN)
+
+# after signal is received for card drawn, move to player turn
+func on_player_card_drawn():
+	if state == State.DRAW:
+		change_state(State.PLAYER_TURN)
 	
 # func for when button clicked, enter combat phase
 func enter_combat():

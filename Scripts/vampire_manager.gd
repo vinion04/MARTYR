@@ -10,10 +10,10 @@ var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall", "Sm
 var vampire_slots:  Array[CardSlot] = []
 # board manager
 var board_manager_ref
+# health
+var vampire_health = 50
 
 # ----- CONSTANTS -----
-# card move speed
-const DEFAULT_CARD_MOVE_SPEED = 0.3
 const DRAW_SPEED = 0.5
 const STARTING_HAND_SIZE = 5
 # paths
@@ -36,6 +36,8 @@ func draw_card():
 	# start at vamp hand position then slide on to board
 	card.position = $"../VampireDeck".position
 	$"../VampireHand".add_card_to_hand(card, DRAW_SPEED)
+	# wait to play card until draw animation is done
+	await get_tree().create_timer(DRAW_SPEED).timeout
 	
 # play the first card in hand into the first open slot
 func play_turn():
@@ -50,5 +52,8 @@ func play_turn():
 func play_card_to_slot(card, slot):
 	$"../VampireHand".remove_card_from_hand(card)
 	board_manager_ref.place_card(card, slot)
-	var tween = get_tree().create_tween()
-	tween.tween_property(card, "global_position", slot.global_position, DEFAULT_CARD_MOVE_SPEED)
+
+# take health away
+func take_damage(damage):
+	vampire_health -= damage
+	print("vampire health: " + str(vampire_health))

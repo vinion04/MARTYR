@@ -2,6 +2,8 @@
 # used to randomize deck, draw cards into hand, and keep track of discards
 extends Node
 
+signal player_draw
+
 # ----- VARIABLES -----
 # what is in the player's deck ?
 var player_deck = ['Sword', 'Crossbow', 'Dagger', "Sword", "Crossbow", "Sword", "Sword", "Sword", "Sword"]
@@ -13,6 +15,7 @@ var drawn_card_this_turn = false
 const DRAW_SPEED = .5
 # paths
 const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -38,6 +41,7 @@ func draw_card():
 		$RichTextLabel.visible = false
 		# set deck text displayed to deck size
 	$RichTextLabel.text = str(player_deck.size())
+	player_draw.emit()
 	
 	# get card data from database
 	var data = CardDatabase.get_card(card_drawn)

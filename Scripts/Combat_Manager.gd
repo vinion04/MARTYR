@@ -38,8 +38,7 @@ func player_attack_phase():
 			# remove vampire card if dead
 			remove_if_dead(v_card)
 		else:
-			# IMPLEMENT VAMPIRE HEALTH DECREASE HERE
-			print("lane ", lane, ": open lane, player card unopposed")
+			$"../VampireManager".take_damage(dmg)
 			# pause before next lane resolve
 		await get_tree().create_timer(LANE_DELAY).timeout
 
@@ -62,8 +61,7 @@ func vampire_attack_phase():
 			# remove player card if dead
 			remove_if_dead(p_card)
 		else:
-			# IMPLEMENT PLAYER HEALTH DECREASE HERE
-			print("lane ", lane, ": open lane, thrall card unopposed")
+			$"../PlayerManager".take_damage(dmg)
 			# pause before next action
 		await get_tree().create_timer(LANE_DELAY).timeout
 		
