@@ -2,6 +2,9 @@
 # places vampire lord's cards in slot positions
 extends Node2D
 
+# signal for when vampire dies
+signal died
+
 # ----- VARIABLES -----
 # what is in the vampire's deck ?
 var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall", "SmThrall", "SmThrall", "MdThrall", "SmThrall", "SmThrall", "LgThrall"]
@@ -10,8 +13,9 @@ var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall", "Sm
 var vampire_slots:  Array[CardSlot] = []
 # board manager
 var board_manager_ref
-# health
-var vampire_health = 50
+# set max vampire hp
+@export var max_hp: int = 3
+var hp: int = max_hp
 
 # ----- CONSTANTS -----
 const DRAW_SPEED = 0.5
@@ -53,7 +57,14 @@ func play_card_to_slot(card, slot):
 	$"../VampireHand".remove_card_from_hand(card)
 	board_manager_ref.place_card(card, slot)
 
-# take health away
+# function to set vampire hp, clamping at max
+func set_hp(value: int):
+	hp = clampi(value, 0, max_hp)
+	# if vampire health is < 0, let game know
+	if hp<= 0:
+		died.emit()
+
+# decrements vampire health
 func take_damage(damage):
-	vampire_health -= damage
-	print("vampire health: " + str(vampire_health))
+	print("vampire health: " + str(hp))
+	set_hp(hp - damage)

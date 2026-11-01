@@ -62,8 +62,8 @@ func vampire_attack_phase():
 			remove_if_dead(p_card)
 		else:
 			$"../PlayerManager".take_damage(dmg)
-			# pause before next action
-		await get_tree().create_timer(LANE_DELAY).timeout
+		# pause before next action
+		await get_tree().create_timer(LANE_DELAY, false).timeout
 		
 
 # gets attack value from card

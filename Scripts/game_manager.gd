@@ -2,19 +2,36 @@
 # contains state machine
 extends Node2D
 
-# ----- CONSTANTS -----
-const STARTING_HAND_SIZE = 5
-
 # signal
 signal state_changed(new_state)
 
-enum State { SETUP, DRAW, PLAYER_TURN, COMBAT, VAMPIRE_TURN, GAME_OVER}
+# ----- CONSTANTS -----
+const STARTING_HAND_SIZE = 5
+
+# ----- VARIABLES -----
+enum State { SETUP, DRAW, PLAYER_TURN, COMBAT, VAMPIRE_TURN, GAME_OVER, GAME_WIN}
 var state: State = State.SETUP
+# player health reference
+var player_manager_ref
+# vampire health reference
+var vampire_manager_ref
+# win/lose panels
+@onready var lose_panel: Control = $HUDLayer/LosePanel
+@onready var win_panel: Control = $HUDLayer/WinPanel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# connect deck drawn signal
 	$PlayerDeck.connect("player_draw", on_player_card_drawn)
+	# set player health reference and connect to signal
+	player_manager_ref = $PlayerManager
+	player_manager_ref.died.connect(on_player_died)
+	# set vampire health reference and connect to signal
+	vampire_manager_ref = $VampireManager
+	vampire_manager_ref.died.connect(on_vampire_died)
+	# hide panels
+	lose_panel.hide()
+	win_panel.hide()
 	# start setup
 	change_state(State.SETUP)
 	
@@ -35,7 +52,9 @@ func change_state(new_state: State):
 		State.VAMPIRE_TURN:
 			await enter_vampire_turn()
 		State.GAME_OVER:
-			pass
+			await show_game_over()
+		State.GAME_WIN:
+			await show_game_win()
 
 # func to start the set up for the game
 func enter_setup():
@@ -88,8 +107,32 @@ func on_end_turn():
 	if state == State.PLAYER_TURN:
 		# continue to combat
 		change_state(State.COMBAT)
-
-# func to handle end turn button press
+	
+# handle player death and game over
+func on_player_died():
+	if state == State.GAME_OVER:
+		return 			# this prevents the game from ending multiple times if combat continues in the background
+	change_state(State.GAME_OVER)
+	
+# handle vampire death and game win
+func on_vampire_died():
+	if state == State.GAME_WIN:
+		return 			# this prevents the game from ending multiple times if combat continues in the background
+	change_state(State.GAME_WIN)
+	
+# presents game over screen (player died)
+func show_game_over():
+	# show panel
+	lose_panel.show()
+	get_tree().paused = true
+	
+# presents game win screen (vampire died)
+func show_game_win():
+	# show panel
+	win_panel.show()
+	get_tree().paused = true
+	
+	# func to handle end turn button press
 func _on_end_turn_button_pressed() -> void:
 	# if player turn, move to combat
 	if state != State.PLAYER_TURN:

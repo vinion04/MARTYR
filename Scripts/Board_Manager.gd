@@ -1,5 +1,5 @@
 # # ---------- board_manager.gd ----------
-# used to keep track of board state and card placement in slots
+# used to keep track of the board, card placing, removing, and checking
 extends Node
 
 # ----- VARIABLES -----
