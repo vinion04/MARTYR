@@ -30,7 +30,7 @@ enum EffectType {
 # card data
 @export_group("Card Stats")
 @export var card_owner: CardOwner = CardOwner.PLAYER
-@export var card_name: String
+@export var card_id: String
 @export var description: String
 @export var category: CardArchetype
 @export var effect_type: EffectType

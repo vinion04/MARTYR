@@ -7,8 +7,8 @@ extends Node2D
 var card_being_dragged
 # store screen size
 var screen_size
-# bool to store if mouse is on card
-var is_hovering_on_card
+# keep track of what card is hovered over
+var hovered_card
 # store card scales for reuse
 var normalScale = Vector2(4, 4)
 var largeScale = Vector2(5, 5)
@@ -39,6 +39,28 @@ func _process(delta: float) -> void:
 		var mouse_pos = get_global_mouse_position()
 		# clamps within screen size
 		card_being_dragged.global_position = Vector2(clamp(mouse_pos.x, 0, screen_size.x), clamp(mouse_pos.y, 0, screen_size.y))
+		clear_hover()
+		return
+	update_hover()
+	
+# update the hover function
+func update_hover():
+	# check what card is on top
+	var top_card = raycast_check_for_card()
+	if top_card == hovered_card:
+		return
+	# unhighlight the old card (if it exists)
+	if is_instance_valid(hovered_card):
+		highlight_card(hovered_card, false)
+	hovered_card = top_card
+	if hovered_card:
+		highlight_card(hovered_card, true)
+
+# stop hovering
+func clear_hover():
+	if is_instance_valid(hovered_card):
+		highlight_card(hovered_card, false)
+	hovered_card = null
 
 func on_left_click_released():
 	if card_being_dragged:
@@ -69,32 +91,6 @@ func finish_drag():
 			# if there is no card slot to be dropped in to, return to hand
 			player_hand_ref.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
 		card_being_dragged = null
-
-# function to connect child cards to this script through signals
-func connect_card_signals(card):
-	card.connect("hovered", on_hover_card)
-	card.connect("hovered_off", on_hover_off)
-	
-# logic for when card is hovered over and signal is called
-func on_hover_card(card):
-	# ignore this hover if a different card is on top
-	var top_card = raycast_check_for_card()
-	if top_card != card:
-		return
-	highlight_card(card, true)
-	
-# logic for when a card is no longer hovered over and signal is called
-func on_hover_off(card):
-	# if there is a card being dragged
-	if !card_being_dragged:
-		# do not highlight a card being passed over
-		highlight_card(card, false)
-		# check if mouse hovered off card straight on to another card
-		var new_card_hovered = raycast_check_for_card()
-		# if there is another card, highlight it
-		if new_card_hovered:
-			highlight_card(new_card_hovered, true)
-		else: is_hovering_on_card = false;
 	
 # for effects applied to card on hover over
 func highlight_card(card, hovered):

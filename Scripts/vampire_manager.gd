@@ -7,7 +7,7 @@ signal died
 
 # ----- VARIABLES -----
 # what is in the vampire's deck ?
-var lord_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall", "SmThrall", "SmThrall", "MdThrall", "SmThrall", "SmThrall", "LgThrall"]
+var vampire_deck = ['SmThrall', 'LgThrall', 'MdThrall', "MdThrall", "SmThrall", "SmThrall", "SmThrall", "MdThrall", "SmThrall", "SmThrall", "LgThrall"]
 # the vampire's slots
 @export var vamp_slots_container: Node2D
 var vampire_slots:  Array[CardSlot] = []
@@ -16,6 +16,8 @@ var board_manager_ref
 # set max vampire hp
 @export var max_hp: int = 3
 var hp: int = max_hp
+# did vamp draw
+var drawn_card_this_turn = false
 
 # ----- CONSTANTS -----
 const DRAW_SPEED = 0.5
@@ -26,13 +28,14 @@ const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	board_manager_ref = $"../BoardManager"
-	lord_deck.shuffle()
+	vampire_deck.shuffle()
 	for child in vamp_slots_container.get_children():
 		if child is CardSlot:
 			vampire_slots.append(child)
 				
 func draw_card():
-	var data = CardDatabase.get_card(lord_deck.pop_front())
+	drawn_card_this_turn = true
+	var data = CardDatabase.get_card(vampire_deck.pop_front())
 	var card = preload(CARD_SCENE_PATH).instantiate()
 	$"../CardManager".add_child(card)
 	card.setup(data)
@@ -51,6 +54,8 @@ func play_turn():
 			return
 		if board_manager_ref.is_open(slot):
 			play_card_to_slot(hand[0], slot)
+	# reset drawn card
+	drawn_card_this_turn = false
 			
 # used to fill open vampire slots
 func play_card_to_slot(card, slot):

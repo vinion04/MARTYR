@@ -8,11 +8,12 @@
 [ext_resource type="Script" uid="uid://c8o11q51vi6va" path="res://Scripts/card_slot.gd" id="4_hptm8"]
 [ext_resource type="Script" uid="uid://dfo78bprnbxqr" path="res://Scripts/board_manager.gd" id="4_kry3j"]
 [ext_resource type="Script" uid="uid://c8so5x83tbx2m" path="res://Scripts/deck_manager.gd" id="5_6bp64"]
-[ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://icon.svg" id="6_344ge"]
+[ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://Sprites/icon.svg" id="6_344ge"]
 [ext_resource type="Script" uid="uid://xfrg8g4ybgjp" path="res://Scripts/player_manager.gd" id="6_fdnlq"]
 [ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
 [ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scripts/vampire_manager.gd" id="9_ynf5e"]
 [ext_resource type="Script" uid="uid://bs2dn1oj3ooah" path="res://Scripts/combat_manager.gd" id="12_6iyac"]
+[ext_resource type="Script" uid="uid://4wmm3ng68up0" path="res://Scripts/save_manager.gd" id="14_jkdf5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
 size = Vector2(123, 121)
@@ -120,6 +121,7 @@ hand_y_position = 50
 [node name="VampireManager" type="Node2D" parent="." unique_id=1586448836 node_paths=PackedStringArray("vamp_slots_container")]
 script = ExtResource("9_ynf5e")
 vamp_slots_container = NodePath("../VampireSlots")
+max_hp = 20
 
 [node name="VampireDeck" type="Node2D" parent="." unique_id=1344342595]
 position = Vector2(1720, 200)
@@ -146,10 +148,18 @@ offset_right = 216.0
 offset_bottom = 162.0
 text = "End Turn"
 
+[node name="PauseButton" type="Button" parent="." unique_id=1870918053]
+offset_left = 100.0
+offset_top = 200.0
+offset_right = 216.0
+offset_bottom = 262.0
+text = "Pause"
+
 [node name="HUDLayer" type="CanvasLayer" parent="." unique_id=1565820748]
 layer = 10
 
 [node name="LosePanel" type="Panel" parent="HUDLayer" unique_id=579990443]
+process_mode = 2
 offset_right = 1920.0
 offset_bottom = 1080.0
 
@@ -166,6 +176,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="WinPanel" type="Panel" parent="HUDLayer" unique_id=645701090]
+process_mode = 2
 offset_right = 1920.0
 offset_bottom = 1080.0
 size_flags_horizontal = 6
@@ -183,4 +194,41 @@ text = "You win!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PausePanel" type="Panel" parent="HUDLayer" unique_id=99930772]
+process_mode = 2
+visibility_layer = 513
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="UnpauseButton" type="Button" parent="HUDLayer/PausePanel" unique_id=2092739601]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 300.0
+offset_right = 216.0
+offset_bottom = 362.0
+text = "Unpause"
+
+[node name="SaveGameButton" type="Button" parent="HUDLayer/PausePanel" unique_id=708755135]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 400.0
+offset_right = 216.0
+offset_bottom = 462.0
+text = "Save Game"
+
+[node name="LoadGameButton" type="Button" parent="HUDLayer/PausePanel" unique_id=1490318545]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 500.0
+offset_right = 216.0
+offset_bottom = 562.0
+text = "Load Save"
+
+[node name="SaveManager" type="Node" parent="." unique_id=706840182]
+script = ExtResource("14_jkdf5")
+
 [connection signal="pressed" from="EndTurnButton" to="." method="_on_end_turn_button_pressed"]
+[connection signal="pressed" from="PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="pressed" from="HUDLayer/PausePanel/UnpauseButton" to="." method="_on_unpause_button_pressed"]
+[connection signal="pressed" from="HUDLayer/PausePanel/SaveGameButton" to="SaveManager" method="_on_save_game_button_pressed"]
+[connection signal="pressed" from="HUDLayer/PausePanel/LoadGameButton" to="SaveManager" method="_on_load_game_button_pressed"]

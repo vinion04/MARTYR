@@ -16,8 +16,6 @@ const DRAW_SPEED = .5
 # paths
 const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# shuffle() "shuffles all elements of the array in a random order
@@ -25,11 +23,13 @@ func _ready() -> void:
 	# set deck count
 	$RichTextLabel.text = str(player_deck.size())
 	
-func draw_card():
-	# if card was already drawn this turn, do not draw a card
-	if drawn_card_this_turn:
-		return
-	drawn_card_this_turn = true
+func draw_card(force: bool = false):
+	# if this draw card is not being forced (forced during setup)
+	if not force:
+		# if card was already drawn this turn, do not draw a card
+		if drawn_card_this_turn:
+			return
+		drawn_card_this_turn = true
 	
 	# take top card from deck
 	var card_drawn = player_deck[0]

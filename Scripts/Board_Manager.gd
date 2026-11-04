@@ -58,3 +58,16 @@ func remove_card(slot: CardSlot):
 # used to get the card within a slot
 func get_card_in(slot: CardSlot):
 	return board.get(slot)
+	
+# return all slots (for snapshot)
+func get_all_cards_in_slots():
+	var active_slots_data: Array = []
+	for slot in player_slots:
+		var card = get_card_in(slot)
+		if card:
+			active_slots_data.append({"card": card, "slot": slot, "owner": "player"})
+	for slot in vampire_slots:
+		var card = get_card_in(slot)
+		if card:
+			active_slots_data.append({"card": card, "slot": slot, "owner": "vampire"})
+	return active_slots_data
