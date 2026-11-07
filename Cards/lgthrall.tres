@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_mxl8p")
 card_owner = 1
-card_name = "Thrall"
+card_id = "LgThrall"
 category = 3
 attack = 4
 health = 5

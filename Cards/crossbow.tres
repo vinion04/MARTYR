@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_yoxby")
-card_name = "Crossbow"
+card_id = "Crossbow"
 art = ExtResource("1_ys5pm")
 attack = 3
 health = 2

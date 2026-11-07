@@ -14,6 +14,8 @@ var center_screen_x
 const CARD_WIDTH = 100
 # card move speed
 const DEFAULT_CARD_MOVE_SPEED = 0.1
+# to reload card
+const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,7 +25,7 @@ func _ready() -> void:
 # function for adding a card to hand array
 func add_card_to_hand(card, speed):
 	if card not in hand:
-		hand.insert(0, card)
+		hand.append(card)
 		update_hand_position(speed)
 	else:
 		# if card in hand
@@ -58,3 +60,14 @@ func remove_card_from_hand(card):
 			hand.erase(card)
 			# updates the hand so it organizes nicely
 			update_hand_position(DEFAULT_CARD_MOVE_SPEED)
+			
+# helps load hand from save
+func load_hand(rows: Array):
+	var card_scene = preload(CARD_SCENE_PATH)
+	for row in rows:
+		var data = CardDatabase.get_card(row.card_id)
+		var card = card_scene.instantiate()
+		$"../CardManager".add_child(card)
+		card.setup(data)
+		hand.append(card)
+	update_hand_position(0.0)

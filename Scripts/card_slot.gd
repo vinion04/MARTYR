@@ -9,4 +9,4 @@ enum Owner { PLAYER, VAMPIRE }
 # who owns the slot ?
 @export var slot_owner: Owner
 # where is it ?
-@export var lane_index: int
+@export var slot_index: int

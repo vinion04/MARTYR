@@ -1,3 +1,56 @@
 [gd_scene format=3 uid="uid://donwmwqvmguqr"]
 
+[ext_resource type="Script" uid="uid://dqxl7otldodok" path="res://Scripts/title_screen_manager.gd" id="1_phf2g"]
+[ext_resource type="Script" uid="uid://4wmm3ng68up0" path="res://Scripts/save_manager.gd" id="2_phf2g"]
+
 [node name="Title" type="Node2D" unique_id=729930744]
+script = ExtResource("1_phf2g")
+
+[node name="NewGameButton" type="Button" parent="." unique_id=792758125]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_top = 300.0
+offset_right = 1160.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "New Game"
+
+[node name="ContinueGameButton" type="Button" parent="." unique_id=1326902075]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_top = 425.0
+offset_right = 1160.0
+offset_bottom = 525.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Continue Game"
+
+[node name="DeleteSaveButton" type="Button" parent="." unique_id=266253556]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 960.0
+offset_top = 550.0
+offset_right = 1160.0
+offset_bottom = 650.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Delete Save"
+
+[node name="SaveManager" type="Node" parent="." unique_id=587828028]
+script = ExtResource("2_phf2g")
+
+[connection signal="pressed" from="NewGameButton" to="." method="_on_new_game_button_pressed"]
+[connection signal="pressed" from="ContinueGameButton" to="." method="_on_continue_game_button_pressed"]
+[connection signal="pressed" from="DeleteSaveButton" to="." method="_on_delete_save_button_pressed"]

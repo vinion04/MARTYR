@@ -40,7 +40,7 @@ func player_attack_phase():
 		else:
 			$"../VampireManager".take_damage(dmg)
 			# pause before next lane resolve
-		await get_tree().create_timer(LANE_DELAY).timeout
+		await get_tree().create_timer(LANE_DELAY, false).timeout
 
 # vampire goes second, thralls that survive hit back
 func vampire_attack_phase():

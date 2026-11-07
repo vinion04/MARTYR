@@ -5,8 +5,6 @@ extends Node
 # ----- VARIABLES -----
 @export var player_slots: Array[CardSlot] = []
 @export var vampire_slots: Array[CardSlot] = []
-# store card in slot bool
-var card_in_slot
 # store card slots
 var board := {}
 # player hand ref for card placement
@@ -19,11 +17,6 @@ const DEFAULT_CARD_MOVE_SPEED = 0.3
 func _ready() -> void:
 	# set player_hand_ref
 	player_hand_ref = $"../PlayerHand"
-
-# function for letting the card go if player decides
-# to move it from this slot
-func let_card_go():
-	card_in_slot = false
 
 # can player play in slot check
 func can_player_place(slot: CardSlot) -> bool:
@@ -59,7 +52,7 @@ func remove_card(slot: CardSlot):
 func get_card_in(slot: CardSlot):
 	return board.get(slot)
 	
-# return all slots (for snapshot)
+# return all slots as a Dictionary (for snapshot)
 func get_all_cards_in_slots():
 	var active_slots_data: Array = []
 	for slot in player_slots:
@@ -71,3 +64,13 @@ func get_all_cards_in_slots():
 		if card:
 			active_slots_data.append({"card": card, "slot": slot, "owner": "vampire"})
 	return active_slots_data
+	
+# return player slots
+func get_player_cards():
+	var cards: Array = []
+	var card
+	for slot in player_slots:
+		card = get_card_in(slot)
+		if card:
+			cards.append(card)
+	return cards

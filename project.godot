@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="MARTYR"
-run/main_scene="uid://ceo4jihyqabxd"
+run/main_scene="uid://donwmwqvmguqr"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://Sprites/icon.svg"
+
+[autoload]
+
+SaveManager="*uid://4wmm3ng68up0"
 
 [display]
 

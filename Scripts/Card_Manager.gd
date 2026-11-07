@@ -13,9 +13,10 @@ var hovered_card
 var normalScale = Vector2(4, 4)
 var largeScale = Vector2(5, 5)
 # player hand
-var player_hand_ref
+@onready var player_hand_ref = $"../PlayerHand"
 var played_vamp_card_this_turn = false
-var board_manager_ref
+@onready var board_manager_ref = $"../BoardManager"
+@onready var game_manager_ref = $".."
 
 # ----- CONSTANTS -----
 # store collision masks for later use, default layer is 1
@@ -27,9 +28,6 @@ const DEFAULT_CARD_MOVE_SPEED = 0.1
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
-	board_manager_ref = $"../BoardManager"
-	# set player_hand_ref
-	player_hand_ref = $"../PlayerHand"
 	$"../InputManager".connect("left_mouse_button_released", on_left_click_released)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -67,9 +65,15 @@ func on_left_click_released():
 		finish_drag()
 	
 # store card drag abilities
-func start_drag(card): 
+func start_drag(card):
+	# if not player turn, don't touch cards at all
+	if game_manager_ref.state != game_manager_ref.State.PLAYER_TURN:
+		return 
 	# no touch if vampire card
 	if card.data.card_owner == CardData.CardOwner.VAMPIRE:
+		return
+	# if this isn't the card's first time being placed, can't go back into hand
+	if card.has_fought:
 		return
 	# free the slot this card is in
 	if card.current_slot:

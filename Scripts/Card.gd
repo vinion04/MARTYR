@@ -9,6 +9,8 @@ var item_sprite: Sprite2D
 var current_slot = null
 # store current card health
 var current_health
+# to see if the card can be pulled back into hand or not
+var has_fought: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -31,6 +33,11 @@ func setup(card_data: CardData):
 	$Health.text = str(data.health)
 	# set corresponding image
 	item_sprite.texture = data.art
+	
+# for reloading the card with saved health amount (not base health)
+func restore_health(value: int):
+	current_health = value
+	$Health.text = str(current_health)
 
 # used for card to take damage
 func take_damage(amount):
