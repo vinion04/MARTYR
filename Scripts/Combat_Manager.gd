@@ -30,11 +30,13 @@ func player_attack_phase():
 			continue
 		# store the damage of the player card
 		var dmg = get_attack(p_card)
+		# store the heal if present, and destory after use
+		if p_card.data.self_heal > 0:
+			$"../PlayerManager".get_heals(p_card.data.self_heal)
+			remove_if_dead(p_card)
 		# if there is a vampire card, take damage
 		if v_card:
 			v_card.take_damage(dmg)
-			# debug
-			print("lane ", lane, ": player card hits thrall for ", dmg)
 			# remove vampire card if dead
 			remove_if_dead(v_card)
 		else:

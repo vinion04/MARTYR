@@ -8,16 +8,16 @@
 [ext_resource type="Script" uid="uid://c8o11q51vi6va" path="res://Scripts/card_slot.gd" id="4_hptm8"]
 [ext_resource type="Script" uid="uid://dfo78bprnbxqr" path="res://Scripts/board_manager.gd" id="4_kry3j"]
 [ext_resource type="Script" uid="uid://c8so5x83tbx2m" path="res://Scripts/deck_manager.gd" id="5_6bp64"]
-[ext_resource type="Texture2D" uid="uid://bebikiyfv7ygo" path="res://Sprites/icon.svg" id="6_344ge"]
 [ext_resource type="Script" uid="uid://xfrg8g4ybgjp" path="res://Scripts/player_manager.gd" id="6_fdnlq"]
 [ext_resource type="Script" uid="uid://5pi8q0pvw44n" path="res://Scripts/input_manager.gd" id="7_ynf5e"]
+[ext_resource type="Texture2D" uid="uid://7kdisoldu8xx" path="res://Sprites/Card Sprites/DeckImg.png" id="8_wsu2k"]
 [ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scripts/vampire_manager.gd" id="9_ynf5e"]
 [ext_resource type="Script" uid="uid://bs2dn1oj3ooah" path="res://Scripts/combat_manager.gd" id="12_6iyac"]
 [ext_resource type="Script" uid="uid://4wmm3ng68up0" path="res://Scripts/save_manager.gd" id="14_jkdf5"]
 [ext_resource type="Script" uid="uid://btk42k2ek6fjd" path="res://Scenes/player_hud.gd" id="14_wsu2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
-size = Vector2(123, 121)
+size = Vector2(163, 252)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wsu2k"]
 
@@ -64,23 +64,26 @@ script = ExtResource("5_6bp64")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerDeck" unique_id=1797417022]
 z_index = -2
-texture = ExtResource("6_344ge")
+position = Vector2(8.999998, 23)
+rotation = 3.1415927
+scale = Vector2(3.6250002, 3.8649998)
+texture = ExtResource("8_wsu2k")
 
 [node name="Area2D" type="Area2D" parent="PlayerDeck" unique_id=1216328600]
 collision_layer = 4
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDeck/Area2D" unique_id=1468800072]
-position = Vector2(0, 1)
+position = Vector2(0, 18)
 shape = SubResource("RectangleShape2D_sd0ua")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PlayerDeck" unique_id=752896334]
 modulate = Color(0, 0, 0, 1)
 z_index = -2
-offset_left = -13.0
-offset_top = -129.0
-offset_right = 27.0
-offset_bottom = -89.0
+offset_left = -16.0
+offset_top = -161.0
+offset_right = 24.0
+offset_bottom = -121.0
 scale = Vector2(2, 2)
 text = "0"
 
@@ -127,7 +130,8 @@ position = Vector2(1720, 200)
 
 [node name="Sprite2D" type="Sprite2D" parent="VampireDeck" unique_id=1640316043]
 z_index = -2
-texture = ExtResource("6_344ge")
+scale = Vector2(3.865, 3.865)
+texture = ExtResource("8_wsu2k")
 
 [node name="InputManager" type="Node2D" parent="." unique_id=645181216]
 script = ExtResource("7_ynf5e")

@@ -23,9 +23,8 @@ SaveManager="*uid://4wmm3ng68up0"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=2
+window/size/mode=1
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 window/vsync/vsync_mode=0
 
 [physics]
@@ -34,4 +33,5 @@ window/vsync/vsync_mode=0
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"

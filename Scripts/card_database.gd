@@ -7,6 +7,7 @@ const CARDS = {
 	"Sword": preload("res://Cards/sword.tres"),
 	"Crossbow": preload("res://Cards/crossbow.tres"),
 	"Dagger": preload("res://Cards/dagger.tres"),
+	"Bandage": preload("res://Cards/bandage.tres"),
 	"SmThrall": preload("res://Cards/smthrall.tres"),
 	"MdThrall": preload("res://Cards/mdthrall.tres"),
 	"LgThrall": preload("res://Cards/lgthrall.tres")

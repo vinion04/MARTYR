@@ -29,8 +29,15 @@ func setup(card_data: CardData):
 	# stores card health from card_data
 	current_health = data.health
 	# set attack and health amounts
-	$Attack.text = str(data.attack)
-	$Health.text = str(data.health)
+	if data.attack == 0:
+		$Attack.text = "0"
+	else: 
+		$Attack.text = str(data.attack)
+	if data.health == 0:
+		$Health.text = "0"
+	else: 
+		$Health.text = str(data.health)
+	$Desc.text = CardData.CardArchetype.keys()[data.category].capitalize()
 	# set corresponding image
 	item_sprite.texture = data.art
 	

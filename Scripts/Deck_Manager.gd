@@ -6,7 +6,7 @@ signal player_draw
 
 # ----- VARIABLES -----
 # what is in the player's deck ?
-var player_deck = ['Sword', 'Crossbow', 'Dagger', "Sword", "Crossbow", "Sword", "Sword", "Sword", "Sword"]
+var player_deck = ['Sword', 'Crossbow', 'Dagger', "Sword", "Crossbow", "Sword", "Sword", "Sword", "Bandage"]
 # one card drawn per turn
 var drawn_card_this_turn = false
 

@@ -31,7 +31,6 @@ enum EffectType {
 @export_group("Card Stats")
 @export var card_owner: CardOwner = CardOwner.PLAYER
 @export var card_id: String
-@export var description: String
 @export var category: CardArchetype
 @export var effect_type: EffectType
 @export var art: Texture2D
@@ -39,3 +38,4 @@ enum EffectType {
 @export var attack: int = 0		# store damage
 @export var health: int = 0		# store health
 @export var self_damage: int = 0	# health cost to player
+@export var self_heal: int = 0

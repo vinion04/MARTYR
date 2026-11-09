@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://dssn7qwe36de3"]
+
+[ext_resource type="Texture2D" uid="uid://brtnh0jw6xy78" path="res://Sprites/Item Sprites/BandageImg.png" id="1_714pb"]
+[ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="2_tcyom"]
+
+[resource]
+script = ExtResource("2_tcyom")
+card_id = "Bandage"
+category = 2
+effect_type = 1
+art = ExtResource("1_714pb")
+self_heal = 3
+metadata/_custom_type_script = "uid://dnoged02fqnwx"

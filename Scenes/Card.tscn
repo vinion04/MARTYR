@@ -21,26 +21,44 @@ position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_bilch")
 
 [node name="Attack" type="RichTextLabel" parent="." unique_id=364454370]
-modulate = Color(0, 0, 0, 1)
-offset_left = -18.0
-offset_top = 20.0
-offset_right = -8.0
-offset_bottom = 30.0
-theme_override_font_sizes/normal_font_size = 8
+modulate = Color(0.43137255, 0, 0, 1)
+texture_filter = 1
+offset_left = -19.0
+offset_top = 20.333334
+offset_right = -9.0
+offset_bottom = 43.333336
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "0"
 fit_content = true
 
 [node name="Health" type="RichTextLabel" parent="." unique_id=2092957669]
-modulate = Color(0, 0, 0, 1)
-offset_left = 12.0
+modulate = Color(0.43137255, 0, 0, 1)
+texture_filter = 1
+offset_left = 13.666667
 offset_top = 20.0
-offset_right = 22.0
-offset_bottom = 30.0
-theme_override_font_sizes/normal_font_size = 8
+offset_right = 23.666668
+offset_bottom = 43.0
+scale = Vector2(0.5, 0.5)
+theme_override_font_sizes/normal_font_size = 16
 bbcode_enabled = true
 text = "0"
 fit_content = true
+
+[node name="Desc" type="RichTextLabel" parent="." unique_id=275002741]
+modulate = Color(0, 0, 0, 1)
+texture_filter = 1
+offset_left = -18.666668
+offset_top = 10.333333
+offset_right = 105.77777
+offset_bottom = 62.333332
+scale = Vector2(0.3, 0.3)
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Reckless Arsenal"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="ItemImage" type="Sprite2D" parent="." unique_id=1180390846]
 position = Vector2(0, -9.333333)

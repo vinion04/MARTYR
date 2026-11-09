@@ -7,8 +7,8 @@ signal died
 
 # ----- VARIABLES -----
 # set max player hp
-@export var max_hp: int = 20
-var hp: int = max_hp
+@export var max_hp: int = 50
+var hp: int = 20
 @onready var player_hud_ref = $"../HUDLayer/PlayerHUD"
 
 # function to set player hp, clamping at max
@@ -21,5 +21,8 @@ func set_hp(value: int):
 
 # decrements player health
 func take_damage(damage):
-	print("player health: " + str(hp))
 	set_hp(hp - damage)
+	
+# increments player health
+func get_heals(heal_amount):
+	set_hp(hp + heal_amount)
