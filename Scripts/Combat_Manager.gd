@@ -30,6 +30,10 @@ func player_attack_phase():
 			continue
 		# store the damage of the player card
 		var dmg = get_attack(p_card)
+		var self_dmg = get_self_dmg(p_card)
+		# take damage for playing this card
+		if self_dmg > 0:
+			$"../PlayerManager".take_damage(self_dmg)
 		# store the heal if present, and destory after use
 		if p_card.data.self_heal > 0:
 			$"../PlayerManager".get_heals(p_card.data.self_heal)
@@ -73,6 +77,14 @@ func get_attack(card):
 	# if the card is a player 'damage' card or thrall, return attack amount
 	if card.data.effect_type == CardData.EffectType.DAMAGE or card.data.category == CardData.CardArchetype.THRALL:
 		return card.data.attack
+	# else, no damage
+	return 0
+	
+# gets self damage value from card
+func get_self_dmg(card):
+	# if the card is a player 'damage' card, return attack amount
+	if card.data.effect_type == CardData.EffectType.DAMAGE:
+		return card.data.self_damage
 	# else, no damage
 	return 0
 	

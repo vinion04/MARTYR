@@ -81,7 +81,7 @@ func enter_setup():
 		$PlayerDeck.draw_card(true)
 		await get_tree().create_timer(0.5, false).timeout
 	# vampire places cards
-	$VampireManager.play_turn()
+	$VampireManager.setup()
 	# save the state before turning to first player turn so player can't draw right away
 	state_before = state
 	# next state would be player turn

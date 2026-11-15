@@ -7,7 +7,7 @@ signal died
 
 # ----- VARIABLES -----
 # chance weights for each thrall to be drawn
-var thrall_weights := {"SmThrall": 50, "MdThrall": 30, "LgThrall": 20}
+var thrall_weights := {"SmThrall": 40, "MdThrall": 30, "LgThrall": 30}
 # board manager
 @onready var board_manager_ref = $"../BoardManager"
 # player hud reference
@@ -18,7 +18,6 @@ var hp: int = max_hp
 
 # ----- CONSTANTS -----
 const DRAW_SPEED = 0.5
-const STARTING_HAND_SIZE = 5
 # paths
 const CARD_SCENE_PATH = "res://Scenes/Card.tscn"
 
@@ -27,18 +26,23 @@ func _ready() -> void:
 	pass
 	
 # picks a thrall at random (using the weights)
-# CLAUDE BUILT THIS FUNCTION
 func pick_thrall():
 	var total = 0
+	# adds all the weighted values into total
 	for w in thrall_weights.values():
 		total += w
+	# picks an number between 1 and total
 	var roll = randi_range(1, total)
+	# for all 3 thrall categories, (if roll = 95)
 	for id in thrall_weights:
+		# SmThrall: 95 - 40 = 55
+		# MdThrall: 55 - 30 = 25
+		# LgThrall: 25 - 30 = -5, LgThrall wins 
 		roll -= thrall_weights[id]
 		if roll <= 0:
 			return id
-	return thrall_weights.keys()[0]
-				
+	return thrall_weights.keys()[0]		# should never hit this
+
 func draw_card():
 	var data = CardDatabase.get_card(pick_thrall())
 	var card = preload(CARD_SCENE_PATH).instantiate()
@@ -60,16 +64,41 @@ func load_hand(rows: Array):
 		$"../CardManager".add_child(card)
 		card.setup(data)
 		$"../VampireHand".add_card_to_hand(card, 0.0)
+		
+# used on setup to place a card into every slot, not just one
+func setup():
+	var hand = $"../VampireHand".hand
+	var vampire_slots = board_manager_ref.vampire_slots
+	for lane in vampire_slots.size():
+		play_card_to_slot(hand[0], vampire_slots[lane])
 	
 	
 # play the first card in hand into the first open slot
+# OR highest damaging player card
 func play_turn():
-	for slot in $"../BoardManager".vampire_slots:
-		var hand = $"../VampireHand".hand
-		if hand.is_empty():
-			return
-		if board_manager_ref.is_open(slot):
-			play_card_to_slot(hand[0], slot)
+	# store hand and board slots
+	var hand = $"../VampireHand".hand
+	var player_slots = board_manager_ref.player_slots
+	var vampire_slots = board_manager_ref.vampire_slots
+	# find the open vampire lane facing the player's heaviest attacker
+	var best_lane := -1
+	var best_threat := -1
+	for lane in player_slots.size():
+		# if the vampire slot is filled, skip lane
+		if not board_manager_ref.is_open(vampire_slots[lane]):
+			continue
+		# get the player card and store how much attack damage it has
+		var p_card = board_manager_ref.get_card_in(player_slots[lane])
+		var threat = p_card.data.attack if p_card else -1
+		# first open lane is the fallback, then a higher threat replaces it
+		if best_lane == -1 or threat > best_threat:
+			best_lane = lane
+			best_threat = threat
+	# no open lanes
+	if best_lane == -1:
+		return
+	# send a thrall to protect that lane
+	play_card_to_slot(hand[0], vampire_slots[best_lane])
 			
 # used to fill open vampire slots
 func play_card_to_slot(card, slot):
