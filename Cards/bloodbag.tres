@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://ptb0vhg385uj"]
+
+[ext_resource type="Texture2D" uid="uid://kydhgumvyo0q" path="res://Sprites/Item Sprites/BloodBagImg.png" id="1_l4pr8"]
+[ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="2_g2hxp"]
+
+[resource]
+script = ExtResource("2_g2hxp")
+card_id = "Bandage"
+category = 2
+effect_type = 1
+art = ExtResource("1_l4pr8")
+self_heal = 6
+metadata/_custom_type_script = "uid://dnoged02fqnwx"

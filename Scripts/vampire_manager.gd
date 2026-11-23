@@ -15,6 +15,10 @@ var thrall_weights := {"SmThrall": 40, "MdThrall": 30, "LgThrall": 30}
 # set max vampire hp
 @export var max_hp: int = 3
 var hp: int = max_hp
+# sound queue for drawing
+@onready var draw_sound: AudioStreamPlayer2D = $DrawSound2
+# sound queue for placing
+@onready var place_sound: AudioStreamPlayer2D = $PlaceSound2
 
 # ----- CONSTANTS -----
 const DRAW_SPEED = 0.5
@@ -44,9 +48,14 @@ func pick_thrall():
 	return thrall_weights.keys()[0]		# should never hit this
 
 func draw_card():
+	# store the data for the card and the card scene
 	var data = CardDatabase.get_card(pick_thrall())
 	var card = preload(CARD_SCENE_PATH).instantiate()
+	# play the draw sound
+	draw_sound.play()
+	# add a new card child to card manager
 	$"../CardManager".add_child(card)
+	# store data associated with card scene
 	card.setup(data)
 	card.name = "VampCard"
 	# start at vamp hand position then slide on to board
@@ -104,6 +113,7 @@ func play_turn():
 func play_card_to_slot(card, slot):
 	$"../VampireHand".remove_card_from_hand(card)
 	board_manager_ref.place_card(card, slot)
+	place_sound.play()
 
 # function to set vampire hp, clamping at max
 func set_hp(value: int):

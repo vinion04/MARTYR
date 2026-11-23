@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CardData" format=3 uid="uid://c8gplj4nbp4c6"]
+
+[ext_resource type="Texture2D" uid="uid://6ap73jairyqr" path="res://Sprites/Item Sprites/MolotovImg.png" id="1_l5khl"]
+[ext_resource type="Script" uid="uid://dnoged02fqnwx" path="res://Scripts/card_data.gd" id="2_0j3jk"]
+
+[resource]
+script = ExtResource("2_0j3jk")
+card_id = "Molotov"
+art = ExtResource("1_l5khl")
+attack = 4
+metadata/_custom_type_script = "uid://dnoged02fqnwx"

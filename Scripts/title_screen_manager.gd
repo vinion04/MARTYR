@@ -27,3 +27,7 @@ func _refresh_buttons():
 	$ContinueGameButton.disabled = not has_save
 	$DeleteSaveButton.disabled = not has_save
 	print("saved game?: " + str(has_save))
+
+
+func _on_continue_game_button_2_pressed() -> void:
+	pass # Replace with function body.

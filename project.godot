@@ -18,6 +18,7 @@ config/icon="res://Sprites/icon.svg"
 [autoload]
 
 SaveManager="*uid://4wmm3ng68up0"
+UISounds="*uid://daq6frsxnevev"
 
 [display]
 

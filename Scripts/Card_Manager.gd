@@ -17,6 +17,8 @@ var largeScale = Vector2(5, 5)
 var played_vamp_card_this_turn = false
 @onready var board_manager_ref = $"../BoardManager"
 @onready var game_manager_ref = $".."
+# for card placement audio
+@onready var place_sound: AudioStreamPlayer2D = $PlaceSound
 
 # ----- CONSTANTS -----
 # store collision masks for later use, default layer is 1
@@ -91,6 +93,7 @@ func finish_drag():
 			player_hand_ref.remove_card_from_hand(card_being_dragged)
 			board_manager_ref.place_card(card_being_dragged, card_slot_found)
 			card_being_dragged.global_position = card_slot_found.global_position
+			place_sound.play()
 		else:
 			# if there is no card slot to be dropped in to, return to hand
 			player_hand_ref.add_card_to_hand(card_being_dragged, DEFAULT_CARD_MOVE_SPEED)
