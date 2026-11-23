@@ -15,7 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://cbqfcijpxwx8s" path="res://Audio/oxidvideos-taking-playing-card-3-522513.mp3" id="9_k12tt"]
 [ext_resource type="Script" uid="uid://vupnxmcw7ndx" path="res://Scripts/vampire_manager.gd" id="9_ynf5e"]
 [ext_resource type="Script" uid="uid://bs2dn1oj3ooah" path="res://Scripts/combat_manager.gd" id="12_6iyac"]
-[ext_resource type="Script" uid="uid://4wmm3ng68up0" path="res://Scripts/save_manager.gd" id="14_jkdf5"]
 [ext_resource type="Script" uid="uid://btk42k2ek6fjd" path="res://Scenes/player_hud.gd" id="14_wsu2k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sd0ua"]
@@ -266,9 +265,6 @@ offset_top = 500.0
 offset_right = 216.0
 offset_bottom = 562.0
 text = "Main Menu"
-
-[node name="SaveManager" type="Node" parent="." unique_id=706840182]
-script = ExtResource("14_jkdf5")
 
 [connection signal="pressed" from="HUDLayer/PlayerHUD/EndTurnButton" to="." method="_on_end_turn_button_pressed"]
 [connection signal="pressed" from="HUDLayer/PlayerHUD/PauseButton" to="." method="_on_pause_button_pressed"]
